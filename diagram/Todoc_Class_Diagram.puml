@@ -1,0 +1,232 @@
+@startuml
+!define LIGHTBLUE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+skinparam roundcorner 20
+title __Todoc Class Diagram__\n
+
+
+ namespace com {
+    namespace cleanup.todoc {
+      namespace model {
+        class com.cleanup.todoc.model.Project {
+            - color : int
+            - id : long
+            - name : String
+            + Project()
+            {static} + getAllProjects()
+            + getColor()
+            + getId()
+            + getName()
+            {static} + getProjectById()
+            + setId()
+            + setName()
+            + toString()
+            - setColor()
+        }
+      }
+    }
+  }
+
+
+  namespace com {
+    namespace cleanup.todoc {
+      namespace model {
+        class com.cleanup.todoc.model.Task {
+            - creationTimestamp : long
+            - id : long
+            - name : String
+            - projectId : long
+            + Task()
+            + getCreationTimestamp()
+            + getId()
+            + getName()
+            + getProject()
+            + getProjectId()
+            + setName()
+            - setCreationTimestamp()
+            - setId()
+            - setProjectId()
+        }
+      }
+    }
+  }
+
+
+  namespace com {
+    namespace cleanup.todoc {
+      namespace model {
+        class com.cleanup.todoc.model.Task.TaskAZComparator {
+            + compare()
+        }
+      }
+    }
+  }
+
+
+  namespace com {
+    namespace cleanup.todoc {
+      namespace model {
+        class com.cleanup.todoc.model.Task.TaskOldComparator {
+            + compare()
+        }
+      }
+    }
+  }
+
+
+  namespace com {
+    namespace cleanup.todoc {
+      namespace model {
+        class com.cleanup.todoc.model.Task.TaskRecentComparator {
+            + compare()
+        }
+      }
+    }
+  }
+
+
+  namespace com {
+    namespace cleanup.todoc {
+      namespace model {
+        class com.cleanup.todoc.model.Task.TaskZAComparator {
+            + compare()
+        }
+      }
+    }
+  }
+
+
+  com.cleanup.todoc.model.Task +-down- com.cleanup.todoc.model.Task.TaskAZComparator
+  com.cleanup.todoc.model.Task +-down- com.cleanup.todoc.model.Task.TaskOldComparator
+  com.cleanup.todoc.model.Task +-down- com.cleanup.todoc.model.Task.TaskRecentComparator
+  com.cleanup.todoc.model.Task +-down- com.cleanup.todoc.model.Task.TaskZAComparator
+
+
+namespace com {
+    namespace cleanup.todoc {
+      namespace list {
+        class com.cleanup.todoc.list.TaskViewModel {
+            - currentProject : LiveData<Project>
+            - executor : Executor
+            - projects : LiveData<List<Project>>
+            + TaskViewModel()
+            + createTask()
+            + deleteTask()
+            + getProjects()
+            + getTasks()
+            + init()
+            + updateTask()
+        }
+      }
+    }
+  }
+
+
+
+
+
+
+
+  namespace com {
+    namespace cleanup.todoc {
+      namespace ui {
+        class com.cleanup.todoc.ui.MainActivity {
+            + dialog : AlertDialog
+            - allProjects : List<Project>
+            - allTasks : List<Task>
+            - dialogEditText : EditText
+            - dialogSpinner : Spinner
+            - lblNoTasks : TextView
+            - listTasks : RecyclerView
+            + onCreate()
+            + onCreateOptionsMenu()
+            + onDeleteTask()
+            + onOptionsItemSelected()
+            - addTask()
+            - configureViewModel()
+            - getAddTaskDialog()
+            - onPositiveButtonClick()
+            - populateDialogSpinner()
+            - showAddTaskDialog()
+            - updateTasks()
+        }
+      }
+    }
+  }
+  
+
+  namespace com {
+    namespace cleanup.todoc {
+      namespace ui {
+        enum SortMethod {
+          ALPHABETICAL
+          ALPHABETICAL_INVERTED
+          NONE
+          OLD_FIRST
+          RECENT_FIRST
+        }
+      }
+    }
+  }
+  
+
+  namespace com {
+    namespace cleanup.todoc {
+      namespace ui {
+        class com.cleanup.todoc.ui.TasksAdapter {
+            - tasks : List<Task>
+            + getItemCount()
+            + onBindViewHolder()
+            + onCreateViewHolder()
+            ~ TasksAdapter()
+            ~ updateTasks()
+        }
+      }
+    }
+  }
+  
+
+  namespace com {
+    namespace cleanup.todoc {
+      namespace ui {
+        interface com.cleanup.todoc.ui.TasksAdapter.DeleteTaskListener {
+            {abstract} + onDeleteTask()
+        }
+      }
+    }
+  }
+  
+
+  namespace com {
+    namespace cleanup.todoc {
+      namespace ui {
+        class com.cleanup.todoc.ui.TasksAdapter.TaskViewHolder {
+            - imgDelete : AppCompatImageView
+            - imgProject : AppCompatImageView
+            - lblProjectName : TextView
+            - lblTaskName : TextView
+            ~ TaskViewHolder()
+            ~ bind()
+        }
+      }
+    }
+  }
+  
+
+
+  com.cleanup.todoc.ui.MainActivity .up.|> com.cleanup.todoc.ui.TasksAdapter.DeleteTaskListener
+
+  com.cleanup.todoc.ui.MainActivity -left- com.cleanup.todoc.model.Project
+  com.cleanup.todoc.ui.MainActivity -- com.cleanup.todoc.model.Task
+  com.cleanup.todoc.ui.MainActivity o-- com.cleanup.todoc.ui.TasksAdapter : adapter
+  com.cleanup.todoc.ui.MainActivity o-- com.cleanup.todoc.ui.MainActivity.SortMethod : sortMethod
+  com.cleanup.todoc.ui.MainActivity o-down- com.cleanup.todoc.list.TaskViewModel : taskViewModel
+  com.cleanup.todoc.ui.MainActivity +-down- com.cleanup.todoc.ui.MainActivity.SortMethod
+  com.cleanup.todoc.ui.TasksAdapter o-- com.cleanup.todoc.ui.TasksAdapter.DeleteTaskListener : deleteTaskListener
+  com.cleanup.todoc.ui.TasksAdapter +-down- com.cleanup.todoc.ui.TasksAdapter.DeleteTaskListener
+  com.cleanup.todoc.ui.TasksAdapter +-down- com.cleanup.todoc.ui.TasksAdapter.TaskViewHolder
+  com.cleanup.todoc.ui.TasksAdapter.TaskViewHolder o-- com.cleanup.todoc.ui.TasksAdapter.DeleteTaskListener : deleteTaskListener
+
+
+
+@enduml

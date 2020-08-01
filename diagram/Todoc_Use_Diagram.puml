@@ -1,0 +1,28 @@
+@startuml
+!define LIGHTBLUE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+skinparam roundcorner 20
+title __Todoc USE Diagram__\n
+left to right direction
+
+rectangle Todoc  #FFFFFF {
+usecase "Lister les tâches" as UC1
+(Trier les tâches)
+(Tri par date)  #WHITESMOKE
+(Tri alphabétique) #WHITESMOKE
+(Trier les tâches) ..> (Tri par date) #BLUE
+(Trier les tâches) ..> (Tri alphabétique) #BLUE
+
+usecase "Créer Tâche" as UC3
+usecase "Supprimer Tâche" as UC4
+
+
+}
+actor "Utilisateur" as user #BLUE/SKYBLUE
+user ---> (UC1)
+user ---> (Trier les tâches)
+user ---> (UC3)
+user ---> (UC4)
+
+
+@enduml

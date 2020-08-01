@@ -1,0 +1,43 @@
+@startuml
+
+title __REPOSITORIES's Class Diagram__\n
+
+  namespace com {
+    namespace cleanup.todoc {
+      namespace repositories {
+        class com.cleanup.todoc.repositories.ProjectDataRepository {
+            + ProjectDataRepository()
+            + getProject()
+            + getProjects()
+        }
+      }
+    }
+  }
+  
+
+  namespace com {
+    namespace cleanup.todoc {
+      namespace repositories {
+        class com.cleanup.todoc.repositories.TaskDataRepository {
+            + TaskDataRepository()
+            + createTask()
+            + deleteTask()
+            + getTasks()
+            + updateTask()
+        }
+      }
+    }
+  }
+  
+
+  com.cleanup.todoc.repositories.ProjectDataRepository o-- com.cleanup.todoc.database.dao.ProjectDao : projectDao
+  com.cleanup.todoc.repositories.TaskDataRepository o-- com.cleanup.todoc.database.dao.TaskDao : taskDao
+
+
+right footer
+
+
+
+endfooter
+
+@enduml
