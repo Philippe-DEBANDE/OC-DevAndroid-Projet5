@@ -107,10 +107,10 @@ namespace com {
 
 
   com.cleanup.todoc.list.TaskViewModel -up-|> android.arch.lifecycle.ViewModel
-  com.cleanup.todoc.list.TaskViewModel o-- com.cleanup.todoc.repositories.ProjectDataRepository : projectDataSource
-  com.cleanup.todoc.list.TaskViewModel o-- com.cleanup.todoc.repositories.TaskDataRepository : taskDataSource
-  com.cleanup.todoc.database -right- com.cleanup.todoc.database.dao.ProjectDao
-  com.cleanup.todoc.database -right- com.cleanup.todoc.database.dao.TaskDao
+  com.cleanup.todoc.list.TaskViewModel o-down- com.cleanup.todoc.repositories.ProjectDataRepository : projectDataSource
+  com.cleanup.todoc.list.TaskViewModel o-down- com.cleanup.todoc.repositories.TaskDataRepository : taskDataSource
+  com.cleanup.todoc.database -up- com.cleanup.todoc.database.dao.ProjectDao
+  com.cleanup.todoc.database -up- com.cleanup.todoc.database.dao.TaskDao
   com.cleanup.todoc.repositories.ProjectDataRepository -down- com.cleanup.todoc.database.dao.ProjectDao
   com.cleanup.todoc.repositories.TaskDataRepository -down- com.cleanup.todoc.database.dao.TaskDao
 

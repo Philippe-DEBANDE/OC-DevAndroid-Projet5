@@ -15,66 +15,58 @@ import java.util.concurrent.Executor;
 public class TaskViewModel extends ViewModel {
 
 
+    // REPOSITORIES
+    private final TaskDataRepository taskDataSource;
+    private final ProjectDataRepository projectDataSource;
+    private final Executor executor;
 
-        // REPOSITORIES
-        private final TaskDataRepository taskDataSource;
-        private final ProjectDataRepository projectDataSource;
-        private final Executor executor;
+    // DATA
+    @Nullable
+    private LiveData<Project> currentProject;
 
-        // DATA
-        @Nullable
-        private LiveData<Project> currentProject;
+    public TaskViewModel(TaskDataRepository taskDataSource, ProjectDataRepository projectDataSource, Executor executor) {
+        this.taskDataSource = taskDataSource;
+        this.projectDataSource = projectDataSource;
+        this.executor = executor;
+        init();
+    }
 
-        public TaskViewModel(TaskDataRepository taskDataSource, ProjectDataRepository projectDataSource, Executor executor) {
-            this.taskDataSource = taskDataSource;
-            this.projectDataSource = projectDataSource;
-            this.executor = executor;
-        }
+    private LiveData<List<Project>> projects;
 
-        private LiveData<List<Project>> projects;
-        /// a revoir
-        /*public void init(long projectId) {
-            if (this.currentProject != null) {
-                return;
-            }
-            currentProject = projectDataSource.getProject(projectId);
-        }*/
-        ///
 
-        // -------------
-        // FOR Project
-        // -------------
-        // A revoir
-        //public LiveData<Project> getProject(long projectId) { return this.currentProject;  }
-        public LiveData<List<Project>> getProjects() {
-            return projects;
-        }
+    // -------------
+    // FOR Project
+    // -------------
 
-        // -------------
-        // FOR Task
-        // -------------
+    public LiveData<List<Project>> getProjects() {
+        return projects;
+    }
 
-        public LiveData<List<Task>> getTasks() {
-            return taskDataSource.getTasks();
-        }
+    // -------------
+    // FOR Task
+    // -------------
 
-        public void createTask(Task task) {
-            executor.execute(() -> {
-                taskDataSource.createTask(task);
-            });
-        }
+    public LiveData<List<Task>> getTasks() {
+        return taskDataSource.getTasks();
+    }
 
-        public void deleteTask(long taskId) {
-            executor.execute(() -> {
-                taskDataSource.deleteTask(taskId);
-            });
-        }
+    public void createTask(Task task) {
+        executor.execute(() -> {
+            taskDataSource.createTask(task);
+        });
+    }
 
-        public void updateTask(Task task) {
-            executor.execute(() -> {
-                taskDataSource.updateTask(task);
-            });
-        }
+    public void deleteTask(long taskId) {
+        executor.execute(() -> {
+            taskDataSource.deleteTask(taskId);
+        });
+    }
+
+    public void updateTask(Task task) {
+        executor.execute(() -> {
+            taskDataSource.updateTask(task);
+        });
+    }
 
     public void init() {
         if (projects == null) {

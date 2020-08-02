@@ -1,6 +1,5 @@
 package com.cleanup.todoc;
 
-import android.os.SystemClock;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.RecyclerView;
@@ -9,17 +8,21 @@ import android.widget.TextView;
 
 import com.cleanup.todoc.ui.MainActivity;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.cleanup.todoc.TestUtils.withRecyclerView;
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -73,15 +76,13 @@ public class MainActivityInstrumentedTest {
         onView(withId(R.id.txt_task_name)).perform(replaceText("hhh Tâche example"));
         onView(withId(android.R.id.button1)).perform(click());
 
-        SystemClock.sleep(5000);
-
-        /*onView(withRecyclerView(R.id.list_tasks).atPositionOnView(0, R.id.lbl_task_name))
+        onView(withRecyclerView(R.id.list_tasks).atPositionOnView(0, R.id.lbl_task_name))
                 .check(matches(withText("aaa Tâche example")));
-                onView(withRecyclerView(R.id.list_tasks).atPositionOnView(1, R.id.lbl_task_name))
+        onView(withRecyclerView(R.id.list_tasks).atPositionOnView(1, R.id.lbl_task_name))
                 .check(matches(withText("zzz Tâche example")));
         onView(withRecyclerView(R.id.list_tasks).atPositionOnView(2, R.id.lbl_task_name))
                 .check(matches(withText("hhh Tâche example")));
-        */
+
 
         // Sort alphabetical
         onView(withId(R.id.action_filter)).perform(click());

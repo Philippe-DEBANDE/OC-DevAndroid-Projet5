@@ -1,4 +1,4 @@
-package com;
+package com.cleanup.todoc;
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.persistence.room.Room;
@@ -92,8 +92,6 @@ public class TaskDaoTest {
         List<Task> taskList = LiveDataTestUtil.getValue(this.database.taskDao().getTasks());
         assertTrue(taskList.isEmpty());
     }
-
-
 
 
     @After

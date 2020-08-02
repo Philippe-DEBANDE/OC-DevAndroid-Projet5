@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * The sort method to be used to display tasks
      */
     @NonNull
-    private SortMethod sortMethod = SortMethod.NONE;
+    private SortMethod sortMethod = SortMethod.OLD_FIRST;
 
     /**
      * Dialog to create a new task
@@ -113,14 +113,13 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         listTasks.setAdapter(adapter);
 
         ////
-
         configureViewModel();
 
-        //final Object[] allProjects = new Object[1];
-        //this.taskViewModel.getProjects().observe(this, projects -> allProjects[0] = projects);
         this.taskViewModel.getProjects().observe(this, projects -> allProjects = projects);
-        this.taskViewModel.getTasks().observe(this, tasks -> {allTasks = Objects.requireNonNull(tasks); updateTasks();});
-
+        this.taskViewModel.getTasks().observe(this, tasks -> {
+            allTasks = Objects.requireNonNull(tasks);
+            updateTasks();
+        });
         ////
 
 
@@ -352,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     private void configureViewModel(){
         ViewModelFactory mViewModelFactory = Injection.provideViewModelFactory(this);
         this.taskViewModel = ViewModelProviders.of(this, mViewModelFactory).get(TaskViewModel.class);
-        this.taskViewModel.init();
+
     }
     ///
 }
