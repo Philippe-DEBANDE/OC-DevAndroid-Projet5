@@ -34,10 +34,10 @@ L'application est une gestion de Tâches qui est à la base développée sans la
 ![Screenshoot_Github_Use_Diagram](diagram/Todoc_Use_Diagram.png)  
 
 * Les objectifs d'acquisitions de comptétences de ce projet sont :
- - L'architecture MVVM.
- - Etablir des diagrammes de classes, relationnels, utilisation.
- - Protection du code en procédant à son obfuscation.
- - Générer une version en format APK signée et déploiement sur le PlayStore.
+  - L'architecture MVVM.
+  - Etablir des diagrammes de classes, relationnels, utilisation.
+  - Protection du code en procédant à son obfuscation.
+  - Générer une version en format APK signée et déploiement sur le PlayStore.
 
 
 * Gestion de l'aspect responsive sur différents périphériques ou orientations.
