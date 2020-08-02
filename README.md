@@ -31,7 +31,7 @@ L'application est une gestion de Tâches qui est à la base développée sans la
   - L'avantage premier est son intégration dans Android Studio
   - Il est possible de personnaliser l'apparence couleur et disposition en creusant un peu. :wink:
 
-![Screenshoot_Github_Use_Diagram](diagram/Use_Diagram.png)  
+![Screenshoot_Github_Use_Diagram](diagram/Todoc_Use_Diagram.png)  
 
 * Les objectifs d'acquisitions de comptétences de ce projet sont :
  - L'architecture MVVM.
